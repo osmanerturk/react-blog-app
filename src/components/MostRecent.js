@@ -1,6 +1,12 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 function MostRecent() {
+
+  let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `/mrecent/`; 
+    navigate(path);
+  }
   return (
     <>
    <div className="card card-side bg-base-100 shadow-xl">
@@ -9,7 +15,7 @@ function MostRecent() {
     <h2 className="card-title">New movie is released!</h2>
     <p>Click the button to watch on Jetflix app.</p>
     <div className="card-actions justify-end">
-      <button className="btn btn-primary">Watch</button>
+      <button onClick={routeChange} className="btn btn-primary">Watch</button>
     </div>
   </div>
 </div>
