@@ -1,5 +1,4 @@
 import React from "react";
-import {Link } from "react-router-dom";
 function Footer() {
   return (
     <footer className="footer items-center p-4 bg-neutral text-neutral-content mt-10">
