@@ -8,9 +8,20 @@ function Home() {
   return (
     <div>
       <Carousel />
-      <div className="grid grid-cols-2 gap-10 ml-10 mt-10">
-        <MostRecent className="col-span-2 ..." />
-        <MostRead className="..." />
+      <div className="grid grid-cols-3 gap-10 ml-10 mt-10">
+        <div className="col-span-2 space-y-4">
+          <MostRecent  />
+          <MostRecent  />
+          <MostRecent  />
+          
+        </div>
+        <div  className="col-span-1 space-y-4">
+          <MostRead  />
+          <MostRead  />
+          <MostRead  />
+        </div>
+        
+        
       </div>
     </div>
   );
