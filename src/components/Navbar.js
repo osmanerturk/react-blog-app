@@ -1,7 +1,15 @@
 import React from "react";
 import {Link } from "react-router-dom";
-function Navbar() {
+import { useDispatch, useSelector } from "react-redux";
+import { postAsyncCatList } from "../redux/slices/categorySlice";
 
+function Navbar() {
+  const cats = useSelector(state=> state.category.catPost)
+  console.log(cats);
+  const dispatch = useDispatch()
+  React.useEffect(()=>{
+    dispatch(postAsyncCatList())
+  },[])
 
 
   return (
@@ -19,9 +27,10 @@ function Navbar() {
             <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
           </Link>
           <ul className="p-2">
-            <li><Link to="/category/react">React</Link></li>
-            <li><Link to="/category/javascript">Javascript</Link></li>
+            {cats.map(state =>
+            <li key={state.id}><Link to={`/posts/${state.name}/${state.id}`}>{state.id}</Link></li> )}
           </ul>
+         
         </li>
         <li><Link to="/about">About</Link></li>
       </ul>
@@ -36,10 +45,10 @@ function Navbar() {
           Posts
           <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </Link>
-        <ul className="p-1">
-          <li><Link to="/posts/category/react">React</Link></li>
-          <li><Link to="/posts/category/javascript">Javascript</Link></li>
-        </ul>
+        <ul className="p-2">
+            {cats.map(state =>
+            <li key={state.id}><Link to={`/posts/${state.name}/${state.id}`}>{state.name}</Link></li> )}
+          </ul>
       </li>
       <li><Link to="/about">About</Link></li>
       <li><Link to="/dashboard">Dashboard</Link></li>

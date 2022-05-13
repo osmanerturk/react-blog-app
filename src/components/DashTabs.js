@@ -195,7 +195,7 @@ export default function BasicTabs() {
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img
-                          src="/tailwind-css-component-profile-2@56w.png"
+                          src="https://mui.com//tailwind-css-component-profile-2@56w.png"
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
