@@ -11,16 +11,14 @@ export const postAsyncCatList = createAsyncThunk("blog/categories", async () => 
   });
   return res.data;
 });
-export const getAsyncCats = createAsyncThunk("blog/posts", async (id) => {
-  const res = await axios.post(`http://127.0.0.1:1076/Categories/${id}`, {
-    where: {},
-    include: {
-      author: true,
-      category: true,
-    },
+export const putAsyncCat = createAsyncThunk("blog/addCategory", async (name) => {
+  const res = await axios.put("http://127.0.0.1:1076/Categories", {
+    name,
   });
   return res.data;
 });
+
+
 
 export const categorySlice = createSlice({
   name: "category",
@@ -32,10 +30,6 @@ export const categorySlice = createSlice({
   extraReducers: {
     [postAsyncCatList.fulfilled]: (state, action) => {
       state.catPost = action.payload;
-    },
-    [getAsyncCats.fulfilled]: (state, action) => {
-      state.postPost = action.payload;
-      console.log(action.payload);
     },
   },
 });

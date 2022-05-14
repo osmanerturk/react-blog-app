@@ -8,12 +8,12 @@ function ReactPage() {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(postAsyncCatList());
-  }, []);
+  });
 
   const { category_id } = useParams();
-  console.log(category_id);
+  
   const selected = cats.find((cat) => (cat.id == category_id ? cat.id : ""));
-  console.log(selected);
+
 
   let navigate = useNavigate();
   const routeChange = () => {
@@ -27,7 +27,6 @@ function ReactPage() {
         <ul>
           <li>Posts</li>
           <li>{selected.name}</li>
-          <li>Detail</li>
         </ul>
       </div>
       {cats.map((cat) =>

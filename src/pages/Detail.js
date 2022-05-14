@@ -9,10 +9,10 @@ function Detail() {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(postAsyncCatList());
-  }, []);
+  });
 
   const { title } = useParams();
-  console.log(title);
+  
   const selected = cats.find((cat) => (cat.id == title ? cat.posts : ""));
   const post = selected.posts;
   return (
@@ -30,8 +30,8 @@ function Detail() {
             <div className="flex flex-col justify-center">
               <img
                 className="p-7 w-max m-auto"
-                src={post.imgPath}
-                alt={post.imgPath}
+                src={'http://localhost:1076' + post.imgPath}
+                alt={post.title}
               />
               <h1 className="text-center font-bold">{post.caption}</h1>
               <p className="p-3">{post.updateAt}</p>

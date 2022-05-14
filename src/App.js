@@ -10,7 +10,7 @@ import Dashboard from "./pages/Dashboard"
 
 function App() {
   return (
-    <div className='flex flex-col'>
+    <div style={{display: 'grid', gridTemplateRows: 'max-content auto max-content', minHeight: '100vh'}}>
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -19,7 +19,7 @@ function App() {
         <Route path="/posts/:category/:category_id/" element={<Posts />} />
         <Route path="/posts/:category/:category_id/:title/:post_id" element={<Detail />} />
       </Routes>
-      <div className='fixed bottom-0 w-full'>
+      <div>
         <Footer/>
       </div>
       
