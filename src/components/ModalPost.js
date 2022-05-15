@@ -2,7 +2,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-
+import { selectItems } from "../redux/slices/categorySlice";
+import { useSelector } from "react-redux";
 const style = {
   position: "absolute",
   top: "50%",
@@ -16,9 +17,13 @@ const style = {
 };
 
 export default function BasicModal() {
+
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const cats = useSelector(selectItems) 
 
   return (
     <div>
@@ -33,28 +38,29 @@ export default function BasicModal() {
           <input
             type="file"
             accept="image/*"
-            placeholder="Type here"
+            placeholder="file"
             className="input input-bordered w-full max-w-xs"
           />
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="Title"
             className="input input-bordered w-full max-w-xs"
           />
+
           <select className="select select-bordered w-full max-w-xs">
-            <option disabled selected>
-              Who shot first?
+            <option value={undefined}>
+              Select Category
             </option>
-            <option>Han Solo</option>
-            <option>Greedo</option>
+           {cats.map(cat=>
+            <option key={cat.id}>{cat.name}</option>)}
           </select>
           <textarea
             className="textarea textarea-primary"
-            placeholder="Bio"
+            placeholder="Caption"
           ></textarea>
           <textarea
             className="textarea textarea-primary"
-            placeholder="Bio"
+            placeholder="Description"
           ></textarea>
 
           <Button>Create New Post</Button>

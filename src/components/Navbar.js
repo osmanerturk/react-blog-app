@@ -5,11 +5,10 @@ import { postAsyncCatList } from "../redux/slices/categorySlice";
 
 function Navbar() {
   const cats = useSelector(state=> state.category.catPost)
-  console.log(cats);
   const dispatch = useDispatch()
   React.useEffect(()=>{
     dispatch(postAsyncCatList())
-  },[cats])
+  },[])
 
 
   return (
@@ -33,6 +32,7 @@ function Navbar() {
          
         </li>
         <li><Link to="/about">About</Link></li>
+        <li><Link to="/dashboard">Dashboard</Link></li>
       </ul>
     </div>
     <Link to="/" className="btn btn-ghost normal-case text-xl">Osman's Blog</Link>

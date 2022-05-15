@@ -13,7 +13,7 @@ function App() {
     <div style={{display: 'grid', gridTemplateRows: 'max-content auto max-content', minHeight: '100vh'}}>
       <Navbar/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />m
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/posts/:category/:category_id/" element={<Posts />} />

@@ -1,9 +1,9 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { putAsyncCat } from "../redux/slices/categorySlice";
-import { useDispatch, useSelector } from "react-redux";
+import { putAsyncCatList } from "../redux/slices/categorySlice";
+import { useDispatch } from "react-redux";
 const style = {
   position: "absolute",
   top: "50%",
@@ -17,16 +17,20 @@ const style = {
 };
 
 export default function BasicModal() {
+
+  const [newCat,setNewCat] = React.useState("")
+  const dispatch = useDispatch()
+  const handleSubmit = () => {
+    if (!newCat) return;
+    dispatch(putAsyncCatList({ name : newCat }));
+
+    setNewCat("");
+  };
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const dispatch = useDispatch()
-
- 
-
-  const [category, setCategory] = React.useState('');
- 
   return (
     <div>
       <Button onClick={handleOpen}>+Category</Button>
@@ -41,13 +45,12 @@ export default function BasicModal() {
             type="text"
             placeholder="Category Name"
             className="input input-bordered w-full max-w-xs"
-            onInput={(e) => {
-              setCategory(e.target.value)
-            }}
+            onChange={(e)=> setNewCat(e.target.value)}
+            value={newCat}
+            
           />
-          
 
-          <Button onClick={()=>dispatch(putAsyncCat())}>Create New Category</Button>
+          <Button onClick={handleSubmit}>Create New Category</Button>
         </Box>
       </Modal>
     </div>

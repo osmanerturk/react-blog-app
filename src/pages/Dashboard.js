@@ -16,9 +16,9 @@ function Dashboard() {
         <ModalCategory triggerText={triggerText} onSubmit={onSubmit} />
         <ModalPost triggerText={triggerText} onSubmit={onSubmit} />
       </div>
-      <div className="" >
-        <DashTabs />
-      </div>
+      <div>
+        <DashTabs /> 
+      </div>     
     </div>
   );
 }

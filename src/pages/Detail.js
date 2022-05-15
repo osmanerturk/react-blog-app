@@ -9,7 +9,7 @@ function Detail() {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(postAsyncCatList());
-  });
+  },[]);
 
   const { title } = useParams();
   
@@ -17,7 +17,7 @@ function Detail() {
   const post = selected.posts;
   return (
     <div>
-      <div class="text-sm breadcrumbs">
+      <div className="text-sm breadcrumbs">
         <ul>
           <li>Posts</li>
           <li>{selected.name}</li>

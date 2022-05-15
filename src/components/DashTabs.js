@@ -4,6 +4,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { useDispatch, useSelector } from "react-redux";
+import { delAsyncCat ,postAsyncCatList, putAsyncCatList } from "../redux/slices/categorySlice";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -18,7 +20,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -40,13 +42,20 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const dispatch = useDispatch();
+  const cats = useSelector((state) => state.category.catPost);
+ 
+  const handleDel = (id) =>{
+    console.log(id); dispatch(delAsyncCat(id))
+  }
+ 
 
-  const handleChange = (event, newValue) => {
+
+  const handleChange = (event , newValue) => {
     setValue(newValue);
   };
 
   return (
-      
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
@@ -54,7 +63,7 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Category" {...a11yProps(0)} />
+          <Tab label="Categories" {...a11yProps(0)} />
           <Tab label="Posts" {...a11yProps(1)} />
         </Tabs>
       </Box>
@@ -62,117 +71,30 @@ export default function BasicTabs() {
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             <tbody>
-              <tr>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-                <td>
-                  <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src="/tailwind-css-component-profile-2@56w.png"
-                          alt="Avatar Tailwind CSS Component"
-                        />
+              {cats.map((cat) => (
+                <tr key={cat.id}>
+                  <td>
+                    <div className="flex items-center space-x-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12"></div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{cat.name}</div>
+                        <div className="text-sm opacity-50">id:{cat.id}</div>
                       </div>
                     </div>
-                    <div>
-                      <div className="font-bold">Hart Hagerty</div>
-                      <div className="text-sm opacity-50">United States</div>
-                    </div>
-                  </div>
-                </td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">edit</button>
-                  <button className="btn btn-ghost btn-xs">delete</button>
-                </th>
-              </tr>
-
-              <tr>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-                <td>
-                  <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src="/tailwind-css-component-profile-3@56w.png"
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">Brice Swyre</div>
-                      <div className="text-sm opacity-50">China</div>
-                    </div>
-                  </div>
-                </td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">edit</button>
-                  <button className="btn btn-ghost btn-xs">delete</button>
-                </th>
-              </tr>
-
-              <tr>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-                <td>
-                  <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src="/tailwind-css-component-profile-4@56w.png"
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">Marjy Ferencz</div>
-                      <div className="text-sm opacity-50">Russia</div>
-                    </div>
-                  </div>
-                </td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">edit</button>
-                  <button className="btn btn-ghost btn-xs">delete</button>
-                </th>
-              </tr>
-
-              <tr>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-                <td>
-                  <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src="/tailwind-css-component-profile-5@56w.png"
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">Yancy Tear</div>
-                      <div className="text-sm opacity-50">Brazil</div>
-                    </div>
-                  </div>
-                </td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">edit</button>
-                  <button className="btn btn-ghost btn-xs">delete</button>
-                </th>
-              </tr>
+                  </td>
+                  <th>
+                    <button className="btn btn-ghost btn-xs">edit</button>
+                    <button
+                      onClick={() => handleDel(cat.id)}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      delete
+                    </button>
+                  </th>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -195,7 +117,7 @@ export default function BasicTabs() {
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img
-                          src="https://mui.com//tailwind-css-component-profile-2@56w.png"
+                          src="/tailwind-css-component-profile-2@56w.png"
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
