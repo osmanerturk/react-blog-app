@@ -4,9 +4,10 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Posts from "./pages/Posts";
+import Categories from "./pages/Categories";
 import Detail from './pages/Detail';
 import Dashboard from "./pages/Dashboard"
+import Posts from './pages/Posts';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/" element={<Home />} />m
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/posts/:category/:category_id/" element={<Posts />} />
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/:category/:category_id/" element={<Categories />} />
         <Route path="/posts/:category/:category_id/:title/:post_id" element={<Detail />} />
       </Routes>
       <div>

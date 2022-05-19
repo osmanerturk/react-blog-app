@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { putAsyncCatList } from "../redux/slices/categorySlice";
+import { putAsyncCat } from "../redux/slices/categorySlice";
 import { useDispatch } from "react-redux";
 const style = {
   position: "absolute",
@@ -22,7 +22,7 @@ export default function BasicModal() {
   const dispatch = useDispatch()
   const handleSubmit = () => {
     if (!newCat) return;
-    dispatch(putAsyncCatList({ name : newCat }));
+    dispatch(putAsyncCat({ name : newCat }));
 
     setNewCat("");
   };

@@ -27,7 +27,7 @@ function Navbar() {
           </Link>
           <ul className="p-2">
             {cats.map(state =>
-            <li key={state.id}><Link to={`/posts/${state.name}/${state.id}`}>{state.id}</Link></li> )}
+            <li key={state.id}><Link to={`/posts/${state.name}/${state.id}`}>{state.name}</Link></li> )}
           </ul>
          
         </li>
@@ -45,7 +45,7 @@ function Navbar() {
           Posts
           <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </Link>
-        <ul className="p-2">
+        <ul className="p-2 bg-gray-300">
             {cats.map(state =>
             <li key={state.id}><Link to={`/posts/${state.name}/${state.id}`}>{state.name}</Link></li> )}
           </ul>

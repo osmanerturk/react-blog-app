@@ -5,7 +5,12 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
-import { delAsyncCat ,postAsyncCatList, putAsyncCatList } from "../redux/slices/categorySlice";
+import {
+  delAsyncCat,
+  postAsyncPostList,
+  selectPosts,
+  delAsyncPost,
+} from "../redux/slices/categorySlice";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,14 +49,20 @@ export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
   const cats = useSelector((state) => state.category.catPost);
- 
-  const handleDel = (id) =>{
-    console.log(id); dispatch(delAsyncCat(id))
-  }
- 
 
+  const handleDelCat = (id) => {
+    dispatch(delAsyncCat(id));
+  };
+  const handleDelPost = (id) => {
+    dispatch(delAsyncPost(id));
+  };
 
-  const handleChange = (event , newValue) => {
+  const posts = useSelector(selectPosts);
+  React.useEffect(() => {
+    dispatch(postAsyncPostList());
+  }, [dispatch]);
+
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -87,7 +98,7 @@ export default function BasicTabs() {
                   <th>
                     <button className="btn btn-ghost btn-xs">edit</button>
                     <button
-                      onClick={() => handleDel(cat.id)}
+                      onClick={() => handleDelCat(cat.id)}
                       className="btn btn-ghost btn-xs"
                     >
                       delete
@@ -110,39 +121,46 @@ export default function BasicTabs() {
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src="/tailwind-css-component-profile-2@56w.png"
-                          alt="Avatar Tailwind CSS Component"
-                        />
+            {posts.map((post) => (
+              <tbody key={post.id}>
+                <tr>
+                  <td>
+                    <div className="flex items-center space-x-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src="/tailwind-css-component-profile-2@56w.png"
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{post.title}</div>
+                        <div className="text-sm opacity-50">{post.id}</div>
                       </div>
                     </div>
-                    <div>
-                      <div className="font-bold">Hart Hagerty</div>
-                      <div className="text-sm opacity-50">United States</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  Zemlak, Daniel and Leannon
-                  <br />
-                  <span className="badge badge-ghost badge-sm">
-                    Desktop Support Technician
-                  </span>
-                </td>
-                <td>Purple</td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">edit</button>
-                  <button className="btn btn-ghost btn-xs">remove</button>
-                  <button className="btn btn-ghost btn-xs">delete</button>
-                </th>
-              </tr>
-            </tbody>
+                  </td>
+                  <td>
+                    {post.category.name}
+                    <br />
+                    <span className="badge badge-ghost badge-sm">
+                      Desktop Support Technician
+                    </span>
+                  </td>
+                  <td>{post.caption}</td>
+                  <th>
+                    <button className="btn btn-ghost btn-xs">edit</button>
+                    <button className="btn btn-ghost btn-xs">remove</button>
+                    <button
+                      className="btn btn-ghost btn-xs"
+                      onClick={()=>handleDelPost(post.id)}
+                    >
+                      delete
+                    </button>
+                  </th>
+                </tr>
+              </tbody>
+            ))}
           </table>
         </div>
       </TabPanel>
